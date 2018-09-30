@@ -3,10 +3,11 @@ import React from 'react';
 class StorePicker extends React.Component {
     render() {
        return (
-           <React.Fragment>
-            <h1>Hi again</h1>
-            <h2>You can render sibling elements without parent dummy div with React.Fragment!</h2>
-           </React.Fragment>
+           <form className='store-selector'>
+            <h1>Please Enter the Store</h1>
+            <input type="text" required placeholder="Store Name"></input>
+            <button type="submit">Visit Store >></button>
+           </form>
        )
     }
 }

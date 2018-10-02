@@ -1,20 +1,36 @@
-import React from 'react';
-import Header from './Header';
-import Order from './Order';
-import Inventory from './Inventory';
+import React from "react";
+import Header from "./Header";
+import Order from "./Order";
+import Inventory from "./Inventory";
 
 class App extends React.Component {
-    render() {
-        return (
-            <div className="catch-of-the-day">
-                <div className="menu">
-                    <Header tagline="Seafood Yumm" />
-                </div>
-                <Order />
-                <Inventory />
-            </div>
-        )
-    }
+  state = {
+    fishes: {},
+    order: {}
+  };
+
+  addFish = fish => {
+    // 1. make a copy of existing state - we never override it. Use spread operator to copy the whole object
+    const fishes = { ...this.state.fishes };
+    // 2. add new fish to fishes variable
+    fishes[`fish${Date.now()}`] = fish;
+    // 3. set new fishes object to state
+    this.setState({
+      fishes: fishes
+    });
+  };
+
+  render() {
+    return (
+      <div className="catch-of-the-day">
+        <div className="menu">
+          <Header tagline="Seafood Yumm" />
+        </div>
+        <Order />
+        <Inventory addFish={this.addFish} />
+      </div>
+    );
+  }
 }
 
 export default App;

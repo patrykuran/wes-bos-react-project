@@ -6,7 +6,8 @@ class StorePicker extends React.Component {
 
   goToStore = (event) => {
       event.preventDefault();
-      console.log(this)
+      const storeName = this.myInput.value.value;
+      this.props.history.push(`/store/${storeName}`);
     }
 
     render() {
@@ -16,7 +17,7 @@ class StorePicker extends React.Component {
             <input
               ref={this.myInput}
               type="text"
-              required 
+              required
               placeholder="Store Name"
               defaultValue={getFunName()
               }>

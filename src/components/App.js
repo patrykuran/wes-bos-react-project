@@ -41,17 +41,17 @@ class App extends React.Component {
                     <Header tagline="Seafood Yumm"/>
                     <ul className="fishes">
                         {/*
-            we cannot use map() on object, it's only for arrays. But we can
-            map through keys of the object. key is a React built-in
-            functionality key={key} gives a unique key.
-          */}
+                        we cannot use map() on object, it's only for arrays. But we can
+                        map through keys of the object. key is a React built-in
+                        functionality. key={key} gives a unique key.
+                        */}
 
                         {Object.keys(this.state.fishes).map(key => (
                             <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder}/>
                         ))}
                     </ul>
                 </div>
-                <Order/>
+                <Order fishes={this.state.fishes} order={this.state.order}/>
                 <Inventory
                     addFish={this.addFish}
                     loadSampleFishes={this.loadSampleFishes}

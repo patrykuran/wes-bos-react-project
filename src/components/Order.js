@@ -15,7 +15,7 @@ class Order extends React.Component {
                 {count} lbs {fish.name}
                 {formatPrice(count * fish.price)}
             </li>
-        )
+        );
     };
 
     render() {
@@ -27,15 +27,14 @@ class Order extends React.Component {
 
             if(isAvailable) {
                 return prevTotal + (count * fish.price);
-            } else {
-                return prevTotal;
             }
+            return prevTotal;
         }, 0);
 
         return (
             <div className="order-wrap">
                 <h2>Order</h2>
-                <ul className={order}>
+                <ul className="order">
                     {orderIds.map(this.renderOrder)}
                 </ul>
                 <div className="total">

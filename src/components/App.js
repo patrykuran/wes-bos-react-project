@@ -4,7 +4,7 @@ import Order from "./Order";
 import Inventory from "./Inventory";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
-import base from '../base'; 
+import base from '../base';
 
 class App extends React.Component {
     state = {
@@ -13,16 +13,27 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        const { params } = this.props.match;
+        const {params} = this.props.match;
+        // reinstate our localStorage
+        const localStorageRef = localStorage.getItem(params.storeId);
+        if(localStorageRef) {
+            console.log('restoring');
+            this.setState({order: JSON.parse(localStorageRef)})
+        }
         this.ref = base.syncState(`${params.storeId}/fishes`, {
-          context: this,
-          state: "fishes"
+            context: this,
+            state: "fishes"
         });
     };
 
-      componentWillUnmount() {
+    componentDidUpdate() {
+        const {params} = this.props.match;
+        localStorage.setItem(params.storeId, JSON.stringify(this.state.order));
+    }
+
+    componentWillUnmount() {
         base.removeBinding(this.ref);
-      }
+    }
 
     addFish = fish => {
         // 1. make a copy of existing state - we never override it. Use spread operator to copy the whole object
@@ -42,9 +53,9 @@ class App extends React.Component {
     };
 
     addToOrder = (key) => {
-      const order = {...this.state.order};
-      order[key] = order[key] + 1 || 1;
-      this.setState({ order : order });
+        const order = {...this.state.order};
+        order[key] = order[key] + 1 || 1;
+        this.setState({order: order});
     };
 
     render() {
